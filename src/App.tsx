@@ -106,7 +106,11 @@ export default function App() {
 
         <div className="flex flex-wrap justify-center gap-2 mb-8">
           <button
-            onClick={() => setSelectedCategory("All")}
+           onClick={() => {
+  setSelectedCategory("All");
+  setSearchQuery("");
+}}
+
             className={`px-4 py-2 rounded-lg ${
               selectedCategory === "All" ? "bg-blue-600 text-white" : "bg-gray-200"
             }`}
