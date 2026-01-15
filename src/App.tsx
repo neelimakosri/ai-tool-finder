@@ -80,7 +80,7 @@ export default function App() {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-lightyellow to-cyan-50 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 py-12 px-4">
       <div className="max-w-5xl mx-auto text-center">
         <h1 className="text-4xl font-bold text-blue-600 mb-2">✨ AI Tool Finder</h1>
         <p className="text-gray-600 mb-6">
