@@ -98,9 +98,7 @@ export default function App() {
             className="w-full max-w-xl px-4 py-3 border rounded-xl shadow"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-              setSearchQuery(e.target.value);
-              fetchTools(e.target.value);
-            }}
+          
           />
           
         </div>
