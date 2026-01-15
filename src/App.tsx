@@ -54,24 +54,33 @@ export default function App() {
   };
 
   const filterTools = () => {
-    let result = [...tools];
+  let filtered = tools;
 
-    if (selectedCategory !== "All") {
-      result = result.filter((tool) => tool.category === selectedCategory);
-    }
+  if (selectedCategory !== "All") {
+    filtered = filtered.filter(
+      tool => tool.category === selectedCategory
+    );
+  }
 
-    if (searchQuery.trim() !== "") {
-      const q = searchQuery.toLowerCase();
-      result = result.filter(
-        (tool) =>
-          tool.name.toLowerCase().includes(q) ||
-          tool.category.toLowerCase().includes(q) ||
-          tool.description.toLowerCase().includes(q) ||
-          tool.keywords.toLowerCase().includes(q)
-      );
-    }
+  if (searchQuery.trim() !== "") {
+    const keywords = searchQuery
+      .toLowerCase()
+      .split(" ")
+      .filter(Boolean);
 
-    setFilteredTools(result);
+    filtered = filtered.filter(tool =>
+      keywords.some(word =>
+        tool.name.toLowerCase().includes(word) ||
+        tool.description.toLowerCase().includes(word) ||
+        tool.category.toLowerCase().includes(word) ||
+        tool.tags.join(" ").toLowerCase().includes(word)
+      )
+    );
+  }
+
+  setFilteredTools(filtered);
+};
+
   };
 
   return (
