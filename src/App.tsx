@@ -9,7 +9,8 @@ type AITool = {
   pricing: string;
   rating: number;
   website: string;
-  keywords: string;
+  tags: string[];
+
 };
 
 export default function App() {
@@ -81,7 +82,6 @@ export default function App() {
   setFilteredTools(filtered);
 };
 
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 py-12 px-4">
@@ -97,11 +97,12 @@ export default function App() {
             placeholder="Search for AI tools..."
             className="w-full max-w-xl px-4 py-3 border rounded-xl shadow"
             value={searchQuery}
-            onChange={(e) => {
+            onChange={(e) => setSearchQuery(e.target.value)}
               setSearchQuery(e.target.value);
               fetchTools(e.target.value);
             }}
           />
+          
         </div>
 
         <div className="flex flex-wrap justify-center gap-2 mb-8">
@@ -121,7 +122,10 @@ export default function App() {
           {categories.map((cat) => (
             <button
               key={cat}
-              onClick={() => setSelectedCategory(cat)}
+              onClick={() => {
+  setSelectedCategory(cat);
+  setSearchQuery(cat);
+}}
               className={`px-4 py-2 rounded-lg ${
                 selectedCategory === cat ? "bg-blue-600 text-white" : "bg-gray-200"
               }`}
