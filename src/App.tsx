@@ -17,7 +17,6 @@ export default function App() {
   const [tools, setTools] = useState<AITool[]>([]);
   const [filteredTools, setFilteredTools] = useState<AITool[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -27,7 +26,7 @@ export default function App() {
 
   useEffect(() => {
     filterTools();
-  }, [tools, selectedCategory, searchQuery]);
+ }, [tools, searchQuery]);
 
   const fetchTools = async (search = "") => {
     setLoading(true);
@@ -51,32 +50,25 @@ export default function App() {
   };
 
   const filterTools = () => {
-  let filtered = tools;
-
-  if (selectedCategory !== "All") {
-    filtered = filtered.filter(
-      tool => tool.category === selectedCategory
-    );
+  if (!searchQuery.trim()) {
+    setFilteredTools(tools);
+    return;
   }
 
-  if (searchQuery.trim() !== "") {
-    const keywords = searchQuery
-      .toLowerCase()
-      .split(" ")
-      .filter(Boolean);
+  const keywords = searchQuery.toLowerCase().split(" ").filter(Boolean);
 
-    filtered = filtered.filter(tool =>
-      keywords.some(word =>
-        tool.name.toLowerCase().includes(word) ||
-        tool.description.toLowerCase().includes(word) ||
-        tool.category.toLowerCase().includes(word) ||
-       (tool.tags || []).join(" ").toLowerCase().includes(word)
-      )
-    );
-  }
+  const filtered = tools.filter(tool =>
+    keywords.some(word =>
+      tool.name.toLowerCase().includes(word) ||
+      tool.description.toLowerCase().includes(word) ||
+      tool.category.toLowerCase().includes(word) ||
+      (tool.tags || []).join(" ").toLowerCase().includes(word)
+    )
+  );
 
   setFilteredTools(filtered);
 };
+
 
 
   return (
@@ -101,9 +93,7 @@ export default function App() {
 
         <div className="flex flex-wrap justify-center gap-2 mb-8">
           <button
-           onClick={() => {
-  setSelectedCategory("All");
-  setSearchQuery("");
+           onClick={() => setSearchQuery(cat)}
 }}
 
             className={`px-4 py-2 rounded-lg ${
