@@ -70,7 +70,7 @@ export default function App() {
         tool.name.toLowerCase().includes(word) ||
         tool.description.toLowerCase().includes(word) ||
         tool.category.toLowerCase().includes(word) ||
-        tool.tags.join(" ").toLowerCase().includes(word)
+       (tool.tags || []).join(" ").toLowerCase().includes(word)
       )
     );
   }
