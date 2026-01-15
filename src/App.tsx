@@ -34,11 +34,7 @@ export default function App() {
 
     let query = supabase.from("ai_tools").select("*");
 
-    if (search && search.trim() !== "") {
-      query = query.or(
-        `name.ilike.%${search}%,category.ilike.%${search}%,description.ilike.%${search}%,keywords.ilike.%${search}%`
-      );
-    }
+   
 
     const { data, error } = await query.order("rating", { ascending: false });
 
